@@ -10,17 +10,26 @@ interface Data {
 
 const Tournament: React.FC<Data> = (props) => {
 
+    console.log('Tournament component', props)
+
     return (
         <Collapse>
             {
                 Object.keys(props.tournaments).map(function (tournamentItem:string, i:number) {
                     // @ts-ignore
                     let gameList:any = props.tournaments[tournamentItem];
+
                     // @ts-ignore
-                    return (<Panel header={props.tournaments[tournamentItem][Object.keys(props.tournaments[tournamentItem])[0]].tournament.name + ' - ' + Number(Object.keys(props.tournaments[tournamentItem]).length)} key={tournamentItem}>
-                            <Game games={gameList}/>
-                        </Panel>
-                    )
+                    if(Object.keys(props.tournaments[tournamentItem]).length) {
+                        // @ts-ignore
+                        return (<Panel header={props.tournaments[tournamentItem][Object.keys(props.tournaments[tournamentItem])[0]].tournament.name + ' - ' + Number(Object.keys(props.tournaments[tournamentItem]).length)} key={tournamentItem}>
+                                <Game games={gameList}/>
+                            </Panel>
+                        )
+                    } else {
+                        return <div> No data </div>
+                    }
+
                 })
             }
 
